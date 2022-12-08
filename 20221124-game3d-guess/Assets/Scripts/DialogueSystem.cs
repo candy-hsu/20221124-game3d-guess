@@ -1,18 +1,18 @@
-
+ï»¿
 using UnityEngine;
 using System.Collections;
 using TMPro;
 namespace Uzai
 {
     /// <summary>
-    /// ¹ï¸Ü¨t²Î
+    /// å°è©±ç³»çµ±
     /// </summary>
     public class DialogueSystem : MonoBehaviour
     {
-        #region ¸ê®Æ°Ï°ì
-        [SerializeField, Header("¹ï¸Ü¶¡¹j"), Range(0, 0.5f)]
+        #region è³‡æ–™å€åŸŸ
+        [SerializeField, Header("å°è©±é–“éš”"), Range(0, 0.5f)]
         private float dialogueIntervalTime = 0.1f;
-        [SerializeField, Header("¶}ÀY¹ï¸Ü")]
+        [SerializeField, Header("é–‹é ­å°è©±")]
         private DialogueData dialogueOpening;
 
         private WaitForSeconds dialogueInterval => new WaitForSeconds(dialogueIntervalTime);
@@ -22,22 +22,22 @@ namespace Uzai
         private GameObject goTriangle;
         #endregion
 
-        #region ¨Æ¥ó
+        #region äº‹ä»¶
         private void Awake()
         {
-            groupDialogue = GameObject.Find("µe¥¬¹ï¸Ü¨t²Î").GetComponent<CanvasGroup>();
-            textName = GameObject.Find("¹ï¸Ü¦WºÙ").GetComponent<TextMeshProUGUI>();
-            textContent = GameObject.Find("¹ï¸Ü¤º®e").GetComponent<TextMeshProUGUI>();
-            goTriangle = GameObject.Find("¹ï¸Ü§¹¦¨¹Ï¥Ü");
+            groupDialogue = GameObject.Find("ç•«å¸ƒå°è©±ç³»çµ±").GetComponent<CanvasGroup>();
+            textName = GameObject.Find("å°è©±åç¨±").GetComponent<TextMeshProUGUI>();
+            textContent = GameObject.Find("å°è©±å…§å®¹").GetComponent<TextMeshProUGUI>();
+            goTriangle = GameObject.Find("å°è©±å®Œæˆåœ–ç¤º");
             goTriangle.SetActive(false);
 
             StartCoroutine(FadeGroup());
             StartCoroutine(TypeEffect());
         }
         #endregion
-        
+
         /// <summary>
-        /// ²H¤J²H¥X¸s²Õª«¥ó
+        /// æ·¡å…¥æ·¡å‡ºç¾¤çµ„ç‰©ä»¶
         /// </summary>
         private IEnumerator FadeGroup()
         {
@@ -55,8 +55,15 @@ namespace Uzai
 
             string dialogue = dialogueOpening.dialogueContects[0];
 
-            yield return dialogueInterval;
+            for (int i = 0; i < dialogue.Length; i++)
+            {
+                textContent.text += dialogue[i];
+                yield return dialogueInterval;
+            }
+
+            goTriangle.SetActive(true);
         }
+
     }
 
 }
