@@ -23,6 +23,7 @@ namespace Uzai
             print("取得測試對話的第一個字：" + testDialogue[0]);
 
             StartCoroutine(ShowDialogue());
+            StartCoroutine(ShowDialogueUseFor());
         }
 
         private IEnumerator Test()
@@ -43,6 +44,15 @@ namespace Uzai
             print(testDialogue[2]);
             yield return new WaitForSeconds(0.1f);
 
+        }
+
+        private IEnumerator ShowDialogueUseFor()
+        {
+            for (int i = 0; i < testDialogue.Length; i++)
+            {
+                print(testDialogue[i]);
+                yield return new WaitForSeconds(0.2f);
+            }
         }
     }
 
