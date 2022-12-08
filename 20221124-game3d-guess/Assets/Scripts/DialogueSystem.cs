@@ -32,9 +32,13 @@ namespace Uzai
             goTriangle.SetActive(false);
 
             StartCoroutine(FadeGroup());
-        } 
+            StartCoroutine(TypeEffect());
+        }
         #endregion
-
+        
+        /// <summary>
+        /// 淡入淡出群組物件
+        /// </summary>
         private IEnumerator FadeGroup()
         {
             for (int i = 0; i < 10; i++)
@@ -42,6 +46,16 @@ namespace Uzai
                 groupDialogue.alpha += 0.1f;
                 yield return new WaitForSeconds(0.04f);
             }
+        }
+
+        private IEnumerator TypeEffect()
+        {
+            textName.text = dialogueOpening.dialogueName;
+            textContent.text = "";
+
+            string dialogue = dialogueOpening.dialogueContects[0];
+
+            yield return dialogueInterval;
         }
     }
 
