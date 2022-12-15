@@ -7,6 +7,12 @@ namespace Uzai
     /// </summary>
     public class InteractableSystem : MonoBehaviour
     {
+        [SerializeField, Header("對話資料")]
+        private DialogueData dataDialogue;
+
+        private string nameTarget = "PlayerCapsule";
+
+
         //3D物件適用
         //兩個碰撞物件必須其中一個勾選 Is Trigger
         //碰撞開始
