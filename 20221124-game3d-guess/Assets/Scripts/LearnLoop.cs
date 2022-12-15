@@ -21,6 +21,13 @@ namespace Uzai
             {
                 print("迴圈：" + number);
             }
+            int count = 0;
+            while (count < 5)
+            {
+                //()內的布林值true就會持續執行。
+                print("while迴圈數字為：" + count);
+                count++;
+            }
         }
 
 

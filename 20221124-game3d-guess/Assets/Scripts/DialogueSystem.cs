@@ -14,6 +14,8 @@ namespace Uzai
         private float dialogueIntervalTime = 0.1f;
         [SerializeField, Header("開頭對話")]
         private DialogueData dialogueOpening;
+        [SerializeField, Header("對話按鍵")]
+        private KeyCode dialogueKey = KeyCode.Space;
 
         private WaitForSeconds dialogueInterval => new WaitForSeconds(dialogueIntervalTime);
         private CanvasGroup groupDialogue;
@@ -48,6 +50,9 @@ namespace Uzai
             }
         }
 
+        /// <summary>
+        /// 打字效果
+        /// </summary>
         private IEnumerator TypeEffect()
         {
             textName.text = dialogueOpening.dialogueName;
@@ -62,6 +67,14 @@ namespace Uzai
             }
 
             goTriangle.SetActive(true);
+
+            //如果玩家還沒按下指定按鍵就等待
+            while (!Input.GetKeyDown(dialogueKey))
+            {
+               //只停留一個影格的時間
+                yield return null;
+            }
+            print("<color=#993300>玩家按下按鍵!</color>");
         }
 
     }
