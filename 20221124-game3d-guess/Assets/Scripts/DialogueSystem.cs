@@ -56,25 +56,31 @@ namespace Uzai
         private IEnumerator TypeEffect()
         {
             textName.text = dialogueOpening.dialogueName;
-            textContent.text = "";
 
-            string dialogue = dialogueOpening.dialogueContects[0];
-
-            for (int i = 0; i < dialogue.Length; i++)
+            for (int j = 0; j < dialogueOpening.dialogueContects.Length; j++)
             {
-                textContent.text += dialogue[i];
-                yield return dialogueInterval;
+                textContent.text = "";
+                goTriangle.SetActive(false);
+
+                string dialogue = dialogueOpening.dialogueContects[j];
+
+                for (int i = 0; i < dialogue.Length; i++)
+                {
+                    textContent.text += dialogue[i];
+                    yield return dialogueInterval;
+                }
+
+                goTriangle.SetActive(true);
+
+                //如果玩家還沒按下指定按鍵就等待
+                while (!Input.GetKeyDown(dialogueKey))
+                {
+                    //只停留一個影格的時間
+                    yield return null;
+                }
+                print("<color=#993300>玩家按下按鍵!</color>");
             }
 
-            goTriangle.SetActive(true);
-
-            //如果玩家還沒按下指定按鍵就等待
-            while (!Input.GetKeyDown(dialogueKey))
-            {
-               //只停留一個影格的時間
-                yield return null;
-            }
-            print("<color=#993300>玩家按下按鍵!</color>");
         }
 
     }
