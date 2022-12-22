@@ -33,10 +33,15 @@ namespace Uzai
             goTriangle = GameObject.Find("對話完成圖示");
             goTriangle.SetActive(false);
 
-            StartCoroutine(FadeGroup());
-            StartCoroutine(TypeEffect());
+            StarDialogue(dialogueOpening);
         }
         #endregion
+
+        public void StarDialogue(DialogueData data)
+        {
+            StartCoroutine(FadeGroup());
+            StartCoroutine(TypeEffect(data));
+        }
 
         /// <summary>
         /// 淡入淡出群組物件
@@ -60,16 +65,16 @@ namespace Uzai
         /// <summary>
         /// 打字效果
         /// </summary>
-        private IEnumerator TypeEffect()
+        private IEnumerator TypeEffect(DialogueData data)
         {
-            textName.text = dialogueOpening.dialogueName;
+            textName.text = data.dialogueName;
 
-            for (int j = 0; j < dialogueOpening.dialogueContects.Length; j++)
+            for (int j = 0; j < data.dialogueContects.Length; j++)
             {
                 textContent.text = "";
                 goTriangle.SetActive(false);
 
-                string dialogue = dialogueOpening.dialogueContects[j];
+                string dialogue = data.dialogueContects[j];
 
                 for (int i = 0; i < dialogue.Length; i++)
                 {
