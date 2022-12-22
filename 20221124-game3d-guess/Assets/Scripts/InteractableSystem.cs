@@ -1,5 +1,6 @@
 ﻿
 using UnityEngine;
+using UnityEngine.Events;
 namespace Uzai
 {
     /// <summary>
@@ -9,6 +10,8 @@ namespace Uzai
     {
         [SerializeField, Header("對話資料")]
         private DialogueData dataDialogue;
+        [SerializeField, Header("對話結束後的事件")]
+        private UnityEvent onDialogueFinsh;
 
         private string nameTarget = "PlayerCapsule";
         private DialogueSystem dialogueSystem;
@@ -40,6 +43,15 @@ namespace Uzai
         {
 
         }
+        
+        ///<summary>
+        ///隱藏物件
+        ///</summary>
+        public void HiddenObject()
+        {
+            gameObject.SetActive(false);
+        }
+        
     }
 }
 

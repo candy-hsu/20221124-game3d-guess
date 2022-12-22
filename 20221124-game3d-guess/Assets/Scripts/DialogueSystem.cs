@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.Collections;
 using TMPro;
+using UnityEngine.InputSystem;
 namespace Uzai
 {
     /// <summary>
@@ -24,6 +25,8 @@ namespace Uzai
         private GameObject goTriangle;
         #endregion
 
+        private PlayerInput playerInput;
+
         #region 事件
         private void Awake()
         {
@@ -33,12 +36,15 @@ namespace Uzai
             goTriangle = GameObject.Find("對話完成圖示");
             goTriangle.SetActive(false);
 
+            playerInput = GameObject.Find("PlayerCapsule").GetComponent<PlayerInput>();
+
             StarDialogue(dialogueOpening);
         }
         #endregion
 
         public void StarDialogue(DialogueData data)
         {
+            playerInput.enabled = false;
             StartCoroutine(FadeGroup());
             StartCoroutine(TypeEffect(data));
         }
@@ -94,6 +100,7 @@ namespace Uzai
             }
 
             StartCoroutine(FadeGroup(false));
+            playerInput.enabled = true;
         }
 
     }
