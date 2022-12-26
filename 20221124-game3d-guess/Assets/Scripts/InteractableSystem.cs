@@ -1,6 +1,7 @@
 ﻿
 using UnityEngine;
 using UnityEngine.Events;
+
 namespace Uzai
 {
     /// <summary>
@@ -11,7 +12,12 @@ namespace Uzai
         [SerializeField, Header("對話資料")]
         private DialogueData dataDialogue;
         [SerializeField, Header("對話結束後的事件")]
-        private UnityEvent onDialogueFinsh;
+        private UnityEvent onDialogueFinish;
+
+        [SerializeField, Header("啟動道具")]
+        private GameObject propActive;
+        [SerializeField, Header("啟動後的對話資料")]
+        private DialogueData dataDialogueActive;
 
         private string nameTarget = "PlayerCapsule";
         private DialogueSystem dialogueSystem;
@@ -29,7 +35,17 @@ namespace Uzai
             if (other.name.Contains(nameTarget))
             {
                 print(other.name);
-                dialogueSystem.StarDialogue(dataDialogue);
+
+                //如果 不需要啟動道具 或是 啟動道具是顯示的 就執行 第一行對話
+                if (propActive == null || propActive.activeInHierarchy)
+                {
+                    dialogueSystem.StarDialogue(dataDialogue, onDialogueFinish);
+                }
+                else
+                {
+                    dialogueSystem.StarDialogue(dataDialogueActive);
+                }
+
             }
 
         }
@@ -43,7 +59,7 @@ namespace Uzai
         {
 
         }
-        
+
         ///<summary>
         ///隱藏物件
         ///</summary>
@@ -51,7 +67,7 @@ namespace Uzai
         {
             gameObject.SetActive(false);
         }
-        
+
     }
 }
 

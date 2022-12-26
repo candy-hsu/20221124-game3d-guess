@@ -3,6 +3,8 @@ using UnityEngine;
 using System.Collections;
 using TMPro;
 using UnityEngine.InputSystem;
+using UnityEngine.Events;
+
 namespace Uzai
 {
     /// <summary>
@@ -26,6 +28,7 @@ namespace Uzai
         #endregion
 
         private PlayerInput playerInput;
+        private UnityEvent onDialogueFinish;
 
         #region 事件
         private void Awake()
@@ -42,11 +45,17 @@ namespace Uzai
         }
         #endregion
 
-        public void StarDialogue(DialogueData data)
+        /// <summary>
+        /// 開始對話
+        /// </summary>
+        /// <param name="data">要執行的對話資料</param>
+        /// <param name="_onDialogueFinish">對話結束後的事件,可以空值</param>
+        public void StarDialogue(DialogueData data,UnityEvent _onDialogueFinish = null)
         {
             playerInput.enabled = false;
             StartCoroutine(FadeGroup());
             StartCoroutine(TypeEffect(data));
+            onDialogueFinish = _onDialogueFinish;
         }
 
         /// <summary>
@@ -99,8 +108,10 @@ namespace Uzai
                 print("<color=#993300>玩家按下按鍵!</color>");
             }
 
-            StartCoroutine(FadeGroup(false));
+            StartCoroutine(FadeGroup(false));   //開啟  玩家輸入元件
             playerInput.enabled = true;
+            //?.當 onDialogueFinish沒有值時就不執行
+            onDialogueFinish?.Invoke();  //對話結束事件,呼叫();
         }
 
     }
