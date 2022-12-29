@@ -22,6 +22,9 @@ namespace Uzai
         private string nameTarget = "PlayerCapsule";
         private DialogueSystem dialogueSystem;
 
+        [SerializeField, Header("啟動後對話結束的事件")]
+        private UnityEvent onDialogueFinishAfterActive;
+
         private void Awake()
         {
             dialogueSystem = GameObject.Find("畫布對話系統").GetComponent<DialogueSystem>();
@@ -43,7 +46,7 @@ namespace Uzai
                 }
                 else
                 {
-                    dialogueSystem.StarDialogue(dataDialogueActive);
+                    dialogueSystem.StarDialogue(dataDialogueActive, onDialogueFinishAfterActive);
                 }
 
             }
